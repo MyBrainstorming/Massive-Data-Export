@@ -1,0 +1,6 @@
+---
+description: 当用户想要访问、修改前端页面或者查看浏览器相关日志时执行此命令。
+globs: 
+alwaysApply: false
+---
+当我输入 /debug命令时,请你采用browser-tools mcp来进行相关操作

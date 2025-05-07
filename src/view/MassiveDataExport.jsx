@@ -1,3 +1,4 @@
+//分批异步多并发导出
 import React, { useState } from "react";
 import axios from "axios"; // 引入 axios
 /**
@@ -9,8 +10,10 @@ import axios from "axios"; // 引入 axios
 const mockFetchData = async (page, pageSize) => {
   // 使用 axios 发送 GET 请求
   // 假设后端接口地址为 /api/data
+  console.log();
+  
   try {
-    const response = await axios.get("/api/data", { params: { page, pageSize } });
+    const response = await axios.get("http://localhost:3000/users", { params: { _start: page * pageSize, _limit: pageSize } });
     return response.data
   } catch (error) {
     console.log("请求数据时出错：", error);
@@ -116,7 +119,8 @@ const ExportComponent = () => {
     // 并发执行所有任务，结果是每页的数据组成的二维数组
     // 使用 runWithConcurrency 函数并发执行任务，并设置最大并发数为 3
     const results = await runWithConcurrency(tasks, concurrency);
-
+    console.log("results", results.flat());
+    
     // 合并所有批次的数据
     // 使用 flat 方法将二维数组转换为一维数组，即所有页面的数据合并成一个数组
     const flatData = results.flat();
